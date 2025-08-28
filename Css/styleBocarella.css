@@ -1,7 +1,7 @@
 /* ======= Estilo general ======= */
-body{
+body {
     color: rgb(0, 104, 5);
-    color: rgb(198, 60, 57); /* NO TOCAR COLORES PREDEFINIDOS DE LA PAGINA*/
+    color: rgb(198, 60, 57); /* NO TOCAR COLORES PREDEFINIDOS DE LA PAGINA */
     color: rgb(227, 239, 179);
 }
 
@@ -51,6 +51,7 @@ h2 {
   color: #ff6b6b;
 }
 
+/* ======= Botones ======= */
 .btn {
   transition: all 0.3s ease;
   border-radius: 8px;
@@ -80,6 +81,7 @@ h2 {
   transform: translateY(-2px);
 }
 
+/* ======= Animación tarjetas ======= */
 .card {
   animation: fadeIn 0.6s ease;
 }
@@ -95,4 +97,20 @@ h2 {
   h2 {
     font-size: 1.5rem;
   }
+}
+
+/* ======= estilos para validaciones ======= */
+.is-valid {
+  border-color: #28a745 !important;
+  box-shadow: 0 0 5px rgba(40, 167, 69, 0.6);
+}
+.is-invalid {
+  border-color: #dc3545 !important;
+  box-shadow: 0 0 5px rgba(220, 53, 69, 0.6);
+}
+
+/* ======= mensajes globales ======= */
+#mensajeForm {
+  font-weight: bold;
+  text-align: center;
 }
