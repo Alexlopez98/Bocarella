@@ -1,3 +1,7 @@
+// ===============================
+// FUNCIONES DEL CARRITO
+// ===============================
+
 // Leer carrito desde LocalStorage
 function getCart() {
   return JSON.parse(localStorage.getItem("cart")) || [];
@@ -6,19 +10,31 @@ function getCart() {
 // Guardar carrito en LocalStorage
 function saveCart(cart) {
   localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount(); // actualizar contador flotante
+}
+
+// Contador del carrito flotante
+function updateCartCount() {
+  const cartCount = document.getElementById("cart-count");
+  if (!cartCount) return;
+  const cart = getCart();
+  const totalProducts = cart.reduce((sum, item) => sum + item.cantidad, 0);
+  cartCount.textContent = totalProducts;
 }
 
 // Renderizar carrito con imagen, botones + y -
 function renderCart() {
   const cartList = document.getElementById("cart-items");
   const cartTotal = document.getElementById("cart-total");
-  cartList.innerHTML = "";
 
+  if (!cartList || !cartTotal) return;
+
+  cartList.innerHTML = "";
   let cart = getCart();
   let total = 0;
 
   cart.forEach((item, index) => {
-    const price = parseInt(item.precio.replace(/\D/g, ''));
+    const price = parseInt(item.precio.replace(/\D/g, '')); // convertir a número
     const subtotal = price * item.cantidad;
     total += subtotal;
 
@@ -28,7 +44,7 @@ function renderCart() {
     li.innerHTML = `
       <img src="${item.img}" alt="${item.titulo}" style="width:60px; height:60px; object-fit:cover; margin-right:10px; border-radius:5px;">
       <div class="flex-grow-1">
-        <strong>${item.titulo}</strong> - $${subtotal}<br>
+        <strong>${item.titulo}</strong> - $${subtotal.toLocaleString('es-CL')}<br>
         Cantidad: 
         <button class="btn btn-sm btn-secondary" onclick="decreaseQuantity(${index})">-</button>
         <span class="mx-2">${item.cantidad}</span>
@@ -38,7 +54,8 @@ function renderCart() {
     cartList.appendChild(li);
   });
 
-  cartTotal.textContent = total;
+  cartTotal.textContent = `$${total.toLocaleString('es-CL')}`;
+  updateCartCount();
 }
 
 // Aumentar cantidad
@@ -55,18 +72,54 @@ function decreaseQuantity(index) {
   if (cart[index].cantidad > 1) {
     cart[index].cantidad -= 1;
   } else {
-    cart.splice(index, 1);
+    cart.splice(index, 1); // eliminar producto si cantidad = 0
   }
   saveCart(cart);
   renderCart();
 }
 
 // Vaciar carrito
-document.getElementById("clear-cart").addEventListener("click", () => {
-  localStorage.removeItem("cart");
-  renderCart();
+document.getElementById("clear-cart")?.addEventListener("click", () => {
+  const cart = getCart();
+  if(cart.length > 0){
+    saveCart([]);
+    renderCart();
+    alert("Carrito vaciado!");
+  }
 });
 
+// Finalizar compra y registrar historial con fecha y total
+function checkoutCart() {
+  let cart = getCart();
+  if(cart.length === 0){
+    alert("El carrito está vacío!");
+    return;
+  }
+
+  const total = cart.reduce((sum, item) => {
+    const price = parseInt(item.precio.replace(/\D/g, ''));
+    return sum + price * item.cantidad;
+  }, 0);
+
+  const fecha = new Date().toLocaleString();
+
+  // Guardar historial
+  let history = JSON.parse(localStorage.getItem("history")) || [];
+  history.push({
+    fecha: fecha,
+    productos: [...cart],
+    total: total
+  });
+  localStorage.setItem("history", JSON.stringify(history));
+
+  // Vaciar carrito
+  saveCart([]);
+  renderCart();
+  alert(`Compra realizada con éxito! Total: $${total.toLocaleString('es-CL')}`);
+}
+
 // Inicializar al cargar
-document.addEventListener("DOMContentLoaded", renderCart);
-//fin
+document.addEventListener("DOMContentLoaded", () => {
+  renderCart();
+  updateCartCount();
+});
