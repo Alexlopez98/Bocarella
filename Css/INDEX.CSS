@@ -1,8 +1,8 @@
 .divider {
-    height: 4px;           /* grosor de la línea */
-    background-color: rgb(198, 60, 57);  /* color rojo */
-    width: 100%;            /* que ocupe todo el ancho */
-    margin: 0;              /* sin margen */
+    height: 4px;        
+    background-color: rgb(198, 60, 57);  
+    width: 100%;       
+    margin: 0;       
 }
 
 .bannerid{
@@ -13,4 +13,15 @@
 }
 .bannerid img {
     border-radius: px;
+}
+
+body {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+
+body.loaded {
+    opacity: 1;
+    transform: translateY(0);
 }

@@ -38,46 +38,86 @@
 </head>
 
 <body>
+    <div id="header"></div>
 
-  <div id="header"></div>
+    <div class="divider"></div>
 
-  <h1 class="text-center my-4">Promociones de Pizza</h1>
+    <!-- HEADER -->
+    <nav class="navbar navbar-expand-lg navbar-light headerID">
+        <div class="container-fluid">
 
-  <div class="text-center mb-4 filter-buttons">
-    <button onclick="filterPromos('all')" class="btn btn-danger">Todas</button>
-    <button onclick="filterPromos('2x1')" class="btn btn-warning">2x1</button>
-    <button onclick="filterPromos('familiar')" class="btn btn-success">Familiar</button>
-    <button onclick="filterPromos('individual')" class="btn btn-info">Individual</button>
-  </div>
+            <div class="d-flex align-items-center">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row">
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="#" data-page="inicio.html">Inicio</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="#" data-page="categorias-promociones/promociones.html">Promociones</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="#" data-page="pizzas.html">Pizzas</a>
+                    </li>
+                    <li class="nav-item me-3">
+                        <a class="nav-link" href="#" data-page="acompanamientos.html">Acompañamientos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" data-page="extras.html">Extras</a>
+                    </li>
+                </ul>
+            </div>
 
-  <!-- Carrito flotante -->
-  <a href="/carrito.html" id="cart-link">
-    <img src="/Img/imagen carrito.png" alt="Carrito de Compras">
-    <span id="cart-count">0</span>
-  </a>
+            <div class="d-flex align-items-center ms-auto">
+                <a class="nav-link me-2" href="#">Ingresa</a>
+                <a href="#">
+                    <img src="Img/NOPICTURE.png" alt="Perfil" class="perfil-img">
+                </a>
+            </div>
 
-  <div class="container">
-    <div class="row" id="promos">
-      <!-- Las promociones se generarán dinámicamente desde JS -->
+        </div>
+    </nav>
+
+    <div class="divider"></div>
+
+    <!-- CONTENEDOR DINÁMICO -->
+    <div id="main-content" class="main-content">
+        <!-- Aquí se cargará el contenido de cada sección -->
     </div>
-  </div>
 
-  <div id="footer"></div>
+    <div id="footer"></div>
 
-  <!-- Scripts -->
-  <script src="/Js/footerandheader.js"></script>
-  <script src="/Js/promociones.js"></script>
-  <script>
-    // Inicializar contador al cargar la página
-    document.addEventListener("DOMContentLoaded", () => {
-      // LocalStorage
-      let cart = JSON.parse(localStorage.getItem("cart")) || [];
-      const cartCount = document.getElementById("cart-count");
-      let totalProducts = cart.reduce((sum, item) => sum + item.cantidad, 0);
-      cartCount.textContent = totalProducts;
+    <script>
+    // --- Sistema SPA casero ---
+    const content = document.getElementById("main-content");
+
+    async function loadPage(page) {
+        try {
+            const response = await fetch(page);
+            if (!response.ok) throw new Error("No se pudo cargar " + page);
+            const html = await response.text();
+            content.innerHTML = html;
+        } catch (err) {
+            content.innerHTML = "<p>Error cargando la página: " + err.message + "</p>";
+        }
+    }
+
+    // Detectar clic en links con data-page
+    document.querySelectorAll("[data-page]").forEach(link => {
+        link.addEventListener("click", (e) => {
+            e.preventDefault();
+            const page = e.currentTarget.getAttribute("data-page"); // 👈 más seguro
+            loadPage(page);
+        });
     });
-  </script>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+    // Cargar por defecto la página de inicio (NO index.html completo)
+    loadPage("categorias-inicio/inicio.html");
+</script>
+
+
+    <script src="Js/DATABASES/DBBANNERS.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="Js/footerandheader.js"></script>
 </body>
+
 
 </html>
