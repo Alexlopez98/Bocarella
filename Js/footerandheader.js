@@ -28,12 +28,12 @@ function updateHeader() {
       logoutBtn.style.display = "block";
       logoutBtn.onclick = () => {
         localStorage.removeItem("activeUser");
-        window.location.href = "index.html";
+        window.location.href = "/index.html";
       };
     }
   } else {
     loginLink.textContent = "INGRESA";
-    loginLink.href = "acceso.html";
+    loginLink.href = "/acceso.html";
     loginLink.classList.remove("dropdown-toggle");
     loginLink.removeAttribute("data-bs-toggle");
 
@@ -45,8 +45,8 @@ function updateHeader() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadHTML("header","../header.html");
-  loadHTML("footer", "../footer.html");
+  loadHTML("header","/header.html");
+  loadHTML("footer", "/footer.html");
 
   // Función global para refrescar el contador en todas las páginas
   window.updateHeaderCartCount = function() {
