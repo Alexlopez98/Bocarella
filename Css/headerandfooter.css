@@ -24,3 +24,15 @@
 .headerID .nav-item.id1 .nav-link:hover {
     color: #c0ffc0;
 }
+
+.navbar-nav .dropdown-menu {
+    position: absolute;     
+    top: 100%;              
+    right: 0;              
+    z-index: 1050;          
+}
+
+
+.navbar-nav .nav-item.dropdown {
+    position: relative;     
+}

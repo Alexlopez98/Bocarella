@@ -19,12 +19,18 @@
         </div>
 
         <!-- Ingresa y foto de perfil a la derecha -->
-        <div class="d-flex align-items-center ms-auto">
-            <a class="nav-link me-2" href="acceso.html">Ingresa</a>
-            <a href="#">
-                <img src="../Img/nopicture.webp" alt="Perfil" width="40" height="40" class="rounded-circle">
-            </a>
-        </div>
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle ingresa" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Ingresa
+                </a>
+                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+                    <li><a class="dropdown-item" href="/perfil.html">Mi Perfil</a></li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li><button class="dropdown-item" id="logoutBtn">Cerrar sesión</button></li>
+                </ul>
+            </li>
+        </ul>
     </div>
 </nav>
 
