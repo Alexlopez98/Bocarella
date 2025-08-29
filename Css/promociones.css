@@ -75,3 +75,15 @@ h1 {
   color: #1a8917;
   margin-top: 10px;
 }
+#cart-link {
+  position: fixed;
+  top: 23px;       /* distancia desde arriba */
+  right: 30px;     /* distancia desde la derecha */
+  z-index: 1000;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+#cart-link:hover {
+  transform: scale(1.1);
+}

@@ -1,5 +1,26 @@
-.textore {   
-    color: #ff6600;
-    font-weight: bold;
-    text-shadow: 0px 4px 7px rgb(88, 88, 88);
+.headerID {
+    background-color: rgb(0, 104, 5);
+    color: white;
+}
+
+.footer1id{
+    background-color: rgb(227, 239, 179);
+}
+
+.headerID .nav-link {
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.headerID .nav-link:hover {
+    color: #c0ffc0;
+    text-decoration: underline;
+}
+
+.headerID .nav-item.id1 .nav-link {
+    color: #ffffff;
+}
+
+.headerID .nav-item.id1 .nav-link:hover {
+    color: #c0ffc0;
 }

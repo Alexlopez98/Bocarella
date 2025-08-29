@@ -1,0 +1,27 @@
+.divider {
+    height: 4px;        
+    background-color: rgb(198, 60, 57);  
+    width: 100%;       
+    margin: 0;       
+}
+
+.bannerid{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 3%;
+    
+}
+.bannerid img {
+    border-radius: px;
+}
+
+body {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.9s ease-out, transform 0.9s ease-out;
+}
+
+body.loaded {
+    opacity: 1;
+    transform: translateY(0);
+}
