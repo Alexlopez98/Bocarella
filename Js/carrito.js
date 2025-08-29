@@ -19,7 +19,7 @@ function saveCart(cart) {
   const key = getActiveUserKey();
   localStorage.setItem(key, JSON.stringify(cart));
   updateCartCount(); // actualizar contador flotante en header
-  if(window.updateHeaderCartCount) window.updateHeaderCartCount();
+  if (window.updateHeaderCartCount) window.updateHeaderCartCount();
 }
 
 // Contador del carrito flotante
@@ -42,7 +42,7 @@ function renderCart() {
   let total = 0;
 
   cart.forEach((item, index) => {
-    const price = parseInt(item.precio.replace(/\D/g, '')); // convertir a número
+    const price = parseInt(item.precio.replace(/\D/g, "")); // convertir a número
     const subtotal = price * item.cantidad;
     total += subtotal;
 
@@ -52,7 +52,11 @@ function renderCart() {
     li.innerHTML = `
       <img src="${item.img}" alt="${item.titulo}" style="width:60px; height:60px; object-fit:cover; margin-right:10px; border-radius:5px;">
       <div class="flex-grow-1">
-        <strong>${item.titulo}</strong> - $${subtotal.toLocaleString('es-CL')}<br>
+        <strong>${item.titulo}</strong> 
+        ${item.tamaño ? `(${item.tamaño})` : ""} - $${subtotal.toLocaleString("es-CL")}<br>
+        ${item.ingredientesExtra && item.ingredientesExtra.length > 0 
+          ? `<small>Extras: ${item.ingredientesExtra.join(", ")}</small><br>` 
+          : ""}
         Cantidad: 
         <button class="btn btn-sm btn-secondary" onclick="decreaseQuantity(${index})">-</button>
         <span class="mx-2">${item.cantidad}</span>
@@ -62,7 +66,7 @@ function renderCart() {
     cartList.appendChild(li);
   });
 
-  cartTotal.textContent = `$${total.toLocaleString('es-CL')}`;
+  cartTotal.textContent = `$${total.toLocaleString("es-CL")}`;
   updateCartCount();
 }
 
@@ -89,30 +93,30 @@ function decreaseQuantity(index) {
 // Vaciar carrito
 document.getElementById("clear-cart")?.addEventListener("click", () => {
   const cart = getCart();
-  if(cart.length > 0){
+  if (cart.length > 0) {
     saveCart([]);
     renderCart();
-    alert("Carrito vaciado!");
+    showToast("Carrito vaciado 🗑️");
   }
 });
 
 // Finalizar compra y registrar historial por usuario
 function checkoutCart() {
   let cart = getCart();
-  if(cart.length === 0){
-    alert("El carrito está vacío!");
+  if (cart.length === 0) {
+    showToast("El carrito está vacío ❌");
     return;
   }
 
   const total = cart.reduce((sum, item) => {
-    const price = parseInt(item.precio.replace(/\D/g, ''));
+    const price = parseInt(item.precio.replace(/\D/g, ""));
     return sum + price * item.cantidad;
   }, 0);
 
   const fecha = new Date().toLocaleString();
   const activeUser = JSON.parse(localStorage.getItem("activeUser"));
 
-  if(!activeUser){
+  if (!activeUser) {
     alert("Debes iniciar sesión para finalizar la compra");
     window.location.href = "acceso.html"; // redirige a login
     return;
@@ -130,7 +134,7 @@ function checkoutCart() {
 
   saveCart([]); // vaciar carrito
   renderCart();
-  alert(`Compra realizada con éxito! Total: $${total.toLocaleString('es-CL')}`);
+  showToast(`Compra realizada con éxito 🎉 Total: $${total.toLocaleString("es-CL")}`);
 }
 
 // Inicializar al cargar la página

@@ -74,14 +74,14 @@ function renderPizzas() {
         titulo: pizza.titulo,
         descripcion: pizza.descripcion,
         tamaño: selectedSize,
-        precioBase: basePrice,
-        precioFinal: finalPrice,
+        precio: `$${finalPrice.toLocaleString("es-CL")}`,
         ingredientesExtra: selectedIngredients,
         img: pizza.img,
         cantidad: 1
       };
 
       addToCartLS(pizzaWithExtras);
+      showToast(`${pizza.titulo} (${selectedSize}) agregado 🛒`);
     });
   });
 }
@@ -91,8 +91,8 @@ function addToCartLS(pizza) {
   let cart = getCart();
 
   // Verificamos por titulo + tamaño + extras
-  const existing = cart.find(item => 
-    item.titulo === pizza.titulo && 
+  const existing = cart.find(item =>
+    item.titulo === pizza.titulo &&
     item.tamaño === pizza.tamaño &&
     JSON.stringify(item.ingredientesExtra) === JSON.stringify(pizza.ingredientesExtra)
   );
@@ -102,8 +102,6 @@ function addToCartLS(pizza) {
 
   saveCart(cart);
   if (typeof updateCartCount === "function") updateCartCount();
-
-  alert(`${pizza.titulo} (${pizza.tamaño}) agregado con ${pizza.ingredientesExtra.length > 0 ? pizza.ingredientesExtra.join(", ") : "sin extras"} 🛒\nPrecio final: $${pizza.precioFinal.toLocaleString()}`);
 }
 
 // Inicializar
