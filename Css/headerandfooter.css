@@ -1,5 +1,29 @@
-.textore {   
-    color: #ff6600;
-    font-weight: bold;
-    text-shadow: 0px 4px 7px rgb(88, 88, 88);
+.headerID {
+    background-color: rgb(0, 104, 5); /* verde oscuro */
+    color: white;
+}
+
+.footer1id{
+    background-color: rgb(227, 239, 179);
+}
+
+/* Cambiar color de los links del header */
+.headerID .nav-link {
+    color: #ffffff; /* blanco, puedes cambiar a cualquier color */
+    font-weight: 500; /* opcional, para que resalte un poco */
+}
+
+/* Color al pasar el mouse */
+.headerID .nav-link:hover {
+    color: #c0ffc0; /* verde claro al hover */
+    text-decoration: underline; /* opcional, subrayado al hover */
+}
+
+/* Si quieres cambiar solo los links de categoría/comunidad/soporte/ingresa */
+.headerID .nav-item.id1 .nav-link {
+    color: #ffffff; /* blanco */
+}
+
+.headerID .nav-item.id1 .nav-link:hover {
+    color: #c0ffc0; /* verde claro al pasar mouse */
 }

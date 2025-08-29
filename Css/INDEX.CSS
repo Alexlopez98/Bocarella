@@ -1,0 +1,16 @@
+.divider {
+    height: 4px;           /* grosor de la línea */
+    background-color: rgb(198, 60, 57);  /* color rojo */
+    width: 100%;            /* que ocupe todo el ancho */
+    margin: 0;              /* sin margen */
+}
+
+.bannerid{
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 3%;
+    
+}
+.bannerid img {
+    border-radius: px;
+}
