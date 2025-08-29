@@ -69,3 +69,4 @@ document.getElementById("clear-cart").addEventListener("click", () => {
 
 // Inicializar al cargar
 document.addEventListener("DOMContentLoaded", renderCart);
+//fin

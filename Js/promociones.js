@@ -1,8 +1,13 @@
-
 // 1. Base de datos de pizzas
-
 const promosData = [
-      {
+  {
+    titulo: "pizza gamer",
+    descripcion: "La mejor pizza para ratas 2x1 pizza pepperoni",
+    categoria: "2x1",
+    precio: "$19.990",
+    img: "../Img/pizzagamer.jpg"
+  },
+  {
     titulo: "pizza gamer",
     descripcion: "La mejor pizza para ratas 2x1 pizza pepperoni",
     categoria: "2x1",
@@ -11,7 +16,7 @@ const promosData = [
   },
   {
     titulo: "Pizza Pepperonipizz",
-    descripcion: "La mejor pizza de toda Italia ",
+    descripcion: "La mejor pizza de toda Italia",
     categoria: "familiar",
     precio: "$12.990",
     img: "/Img/BOCA.png"
@@ -30,8 +35,17 @@ const promosData = [
     precio: "$5.990",
     img: "/Img/hawaiana.png"
   }
-  
 ];
+
+// Contador de productos en el carrito
+const cartCount = document.getElementById('cart-count');
+
+// Función para actualizar el contador desde LocalStorage
+function updateCartCount() {
+  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let totalProducts = cart.reduce((sum, item) => sum + item.cantidad, 0);
+  if(cartCount) cartCount.textContent = totalProducts;
+}
 
 // Renderizar pizzas
 function renderPromos() {
@@ -46,7 +60,7 @@ function renderPromos() {
           <div class="card-body">
             <h5 class="card-title">${pizza.titulo}</h5>
             <p class="card-text">${pizza.descripcion}</p>
-            <button class="btn btn-success" onclick='addToCartLS(${JSON.stringify(pizza)})'>Comprar</button>
+            <button class="btn btn-success add-to-cart">Comprar</button>
           </div>
           <ul class="list-group list-group-flush">
             <li class="list-group-item">Categoría: ${pizza.categoria}</li>
@@ -56,6 +70,14 @@ function renderPromos() {
       </div>
     `;
     container.innerHTML += card;
+  });
+
+  // Agregar evento a los botones de comprar
+  const addButtons = document.querySelectorAll(".add-to-cart");
+  addButtons.forEach((btn, index) => {
+    btn.addEventListener("click", () => {
+      addToCartLS(promosData[index]);
+    });
   });
 }
 
@@ -78,8 +100,12 @@ function addToCartLS(pizza) {
     cart.push({ ...pizza, cantidad: 1 });
   }
   localStorage.setItem("cart", JSON.stringify(cart));
+  updateCartCount();
   alert(`${pizza.titulo} agregado al carrito! 🛒`);
 }
 
-document.addEventListener("DOMContentLoaded", renderPromos);
-
+// Inicializar
+document.addEventListener("DOMContentLoaded", () => {
+  renderPromos();
+  updateCartCount(); // Mostrar contador al cargar la página
+});
