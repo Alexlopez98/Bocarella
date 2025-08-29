@@ -1,4 +1,3 @@
-// 1. Base de datos de acompañamientos con precios por tamaño
 const acompanamientosData = [
   {
     titulo: "Papas Fritas",
@@ -16,7 +15,6 @@ const acompanamientosData = [
   },
 ];
 
-// 2. Renderizar acompañamientos
 function renderAcompanamientos() {
   const container = document.getElementById("acompanamientos");
   container.innerHTML = "";
@@ -31,8 +29,8 @@ function renderAcompanamientos() {
           <h5 class="card-title">${item.titulo}</h5>
           <p class="card-text">${item.descripcion}</p>
 
-          <label for="size-${index}" class="form-label"><strong>Tamaño:</strong></label>
-          <select class="form-select mb-2 size-select" id="size-${index}">
+          <label class="form-label"><strong>Tamaño:</strong></label>
+          <select class="form-select mb-2 size-select">
             <option value="pequeño">Pequeño - $${item.precios.pequeño.toLocaleString()}</option>
             <option value="mediano" selected>Mediano - $${item.precios.mediano.toLocaleString()}</option>
             <option value="grande">Grande - $${item.precios.grande.toLocaleString()}</option>
@@ -41,8 +39,8 @@ function renderAcompanamientos() {
           <h6>Extras (+$500 c/u):</h6>
           ${item.extras.map((ex, i) => `
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="${ex}" id="extra-${index}-${i}">
-              <label class="form-check-label" for="extra-${index}-${i}">${ex}</label>
+              <input class="form-check-input" type="checkbox" value="${ex}">
+              <label class="form-check-label">${ex}</label>
             </div>
           `).join("")}
 
@@ -52,54 +50,40 @@ function renderAcompanamientos() {
     `;
     container.appendChild(card);
 
-    // Evento agregar al carrito
     card.querySelector(".add-to-cart").addEventListener("click", () => {
       const sizeSelect = card.querySelector(".size-select");
       const selectedSize = sizeSelect.value;
       const basePrice = item.precios[selectedSize];
 
-      const selectedExtras = Array.from(card.querySelectorAll("input[type=checkbox]:checked")).map(cb => cb.value);
+      const selectedExtras = Array.from(card.querySelectorAll("input[type=checkbox]:checked"))
+        .map(cb => cb.value);
 
-      const extraCost = selectedExtras.length * 500; // 💰 cada extra vale $500
+      const extraCost = selectedExtras.length * 500;
       const finalPrice = basePrice + extraCost;
 
       const itemWithExtras = {
         titulo: item.titulo,
-        descripcion: item.descripcion,
         tamaño: selectedSize,
-        precioBase: basePrice,
-        precioFinal: finalPrice,
-        extras: selectedExtras,
+        precio: `$${finalPrice.toLocaleString("es-CL")}`,
+        ingredientesExtra: selectedExtras,
         img: item.img,
         cantidad: 1
       };
 
-      addToCartLS(itemWithExtras);
+      let cart = getCart();
+      const existing = cart.find(el => 
+        el.titulo === itemWithExtras.titulo && 
+        el.tamaño === itemWithExtras.tamaño &&
+        JSON.stringify(el.ingredientesExtra) === JSON.stringify(itemWithExtras.ingredientesExtra)
+      );
+
+      if (existing) existing.cantidad += 1;
+      else cart.push(itemWithExtras);
+
+      saveCart(cart);
+      alert(`${item.titulo} agregado 🛒`);
     });
   });
 }
 
-// 3. Agregar al carrito (usa carrito.js)
-function addToCartLS(item) {
-  let cart = getCart();
-
-  // Verificar si ya existe el mismo acompañamiento con mismo tamaño y extras
-  const existing = cart.find(el => 
-    el.titulo === item.titulo && 
-    el.tamaño === item.tamaño &&
-    JSON.stringify(el.extras) === JSON.stringify(item.extras)
-  );
-
-  if (existing) existing.cantidad += 1;
-  else cart.push(item);
-
-  saveCart(cart);
-  if (typeof updateCartCount === "function") updateCartCount();
-
-  alert(`${item.titulo} (${item.tamaño}) agregado con ${item.extras.length > 0 ? item.extras.join(", ") : "sin extras"} 🛒\nPrecio final: $${item.precioFinal.toLocaleString()}`);
-}
-
-// Inicializar
-document.addEventListener("DOMContentLoaded", () => {
-  renderAcompanamientos();
-});
+document.addEventListener("DOMContentLoaded", renderAcompanamientos);

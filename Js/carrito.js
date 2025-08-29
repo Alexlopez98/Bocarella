@@ -18,7 +18,7 @@ function getCart() {
 function saveCart(cart) {
   const key = getActiveUserKey();
   localStorage.setItem(key, JSON.stringify(cart));
-  updateCartCount(); // actualizar contador flotante en header
+  updateCartCount();
   if (window.updateHeaderCartCount) window.updateHeaderCartCount();
 }
 
@@ -42,7 +42,7 @@ function renderCart() {
   let total = 0;
 
   cart.forEach((item, index) => {
-    const price = parseInt(item.precio.replace(/\D/g, "")); // convertir a número
+    const price = parseInt(item.precio.replace(/\D/g, "")) || 0;
     const subtotal = price * item.cantidad;
     total += subtotal;
 
@@ -53,7 +53,9 @@ function renderCart() {
       <img src="${item.img}" alt="${item.titulo}" style="width:60px; height:60px; object-fit:cover; margin-right:10px; border-radius:5px;">
       <div class="flex-grow-1">
         <strong>${item.titulo}</strong> 
-        ${item.tamaño ? `(${item.tamaño})` : ""} - $${subtotal.toLocaleString("es-CL")}<br>
+        ${item.tamaño ? `(${item.tamaño})` : ""}
+        ${item.sabor ? ` - ${item.sabor}` : ""}
+        - $${subtotal.toLocaleString("es-CL")}<br>
         ${item.ingredientesExtra && item.ingredientesExtra.length > 0 
           ? `<small>Extras: ${item.ingredientesExtra.join(", ")}</small><br>` 
           : ""}
@@ -84,23 +86,21 @@ function decreaseQuantity(index) {
   if (cart[index].cantidad > 1) {
     cart[index].cantidad -= 1;
   } else {
-    cart.splice(index, 1); // eliminar producto si cantidad = 0
+    cart.splice(index, 1);
   }
   saveCart(cart);
   renderCart();
 }
 
 // Vaciar carrito
-document.getElementById("clear-cart")?.addEventListener("click", () => {
-  const cart = getCart();
-  if (cart.length > 0) {
-    saveCart([]);
-    renderCart();
-    showToast("Carrito vaciado 🗑️");
-  }
-});
+function clearCart() {
+  saveCart([]);
+  renderCart();
+  showToast("Carrito vaciado 🗑️");
+}
+document.getElementById("clear-cart")?.addEventListener("click", clearCart);
 
-// Finalizar compra y registrar historial por usuario
+// Finalizar compra
 function checkoutCart() {
   let cart = getCart();
   if (cart.length === 0) {
@@ -109,7 +109,7 @@ function checkoutCart() {
   }
 
   const total = cart.reduce((sum, item) => {
-    const price = parseInt(item.precio.replace(/\D/g, ""));
+    const price = parseInt(item.precio.replace(/\D/g, "")) || 0;
     return sum + price * item.cantidad;
   }, 0);
 
@@ -118,26 +118,21 @@ function checkoutCart() {
 
   if (!activeUser) {
     alert("Debes iniciar sesión para finalizar la compra");
-    window.location.href = "acceso.html"; // redirige a login
+    window.location.href = "acceso.html";
     return;
   }
 
-  // Guardar historial por usuario
   const historyKey = `history_${activeUser.usuario}`;
   let history = JSON.parse(localStorage.getItem(historyKey)) || [];
-  history.push({
-    fecha: fecha,
-    productos: [...cart],
-    total: total
-  });
+  history.push({ fecha, productos: [...cart], total });
   localStorage.setItem(historyKey, JSON.stringify(history));
 
-  saveCart([]); // vaciar carrito
+  saveCart([]);
   renderCart();
   showToast(`Compra realizada con éxito 🎉 Total: $${total.toLocaleString("es-CL")}`);
 }
 
-// Inicializar al cargar la página
+// Inicializar
 document.addEventListener("DOMContentLoaded", () => {
   renderCart();
   updateCartCount();
