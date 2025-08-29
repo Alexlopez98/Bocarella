@@ -8,13 +8,40 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="/Css/promociones.css">
+  <style>
+    /* Contador del carrito */
+    #cart-count {
+      background: #d62828;
+      color: white;
+      font-weight: bold;
+      border-radius: 40%;
+      padding: 4px 8px;
+      position: absolute;
+      top: -1px;
+      right: -0px;
+      font-size: 12px;
+    }
+
+    /* Posición flotante del carrito */
+    #cart-link {
+      position: fixed;
+      top: 23px;
+      right: 30px;
+      z-index: 1000;
+    }
+
+    #cart-link img {
+      width: 50px;
+      height: 50px;
+    }
+  </style>
 </head>
 
 <body>
 
   <div id="header"></div>
 
-  <h1 class="text-center my-4"> Promociones de Pizza</h1>
+  <h1 class="text-center my-4">Promociones de Pizza</h1>
 
   <div class="text-center mb-4 filter-buttons">
     <button onclick="filterPromos('all')" class="btn btn-danger">Todas</button>
@@ -23,9 +50,16 @@
     <button onclick="filterPromos('individual')" class="btn btn-info">Individual</button>
   </div>
 
-  <!-- Contenedor donde JS insertará las pizzas -->
+  <!-- Carrito flotante -->
+  <a href="/carrito.html" id="cart-link">
+    <img src="/Img/imagen carrito.png" alt="Carrito de Compras">
+    <span id="cart-count">0</span>
+  </a>
+
   <div class="container">
-    <div class="row" id="promos"></div>
+    <div class="row" id="promos">
+      <!-- Las promociones se generarán dinámicamente desde JS -->
+    </div>
   </div>
 
   <div id="footer"></div>
@@ -33,6 +67,17 @@
   <!-- Scripts -->
   <script src="/Js/footerandheader.js"></script>
   <script src="/Js/promociones.js"></script>
+  <script>
+    // Inicializar contador al cargar la página
+    document.addEventListener("DOMContentLoaded", () => {
+      // LocalStorage
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const cartCount = document.getElementById("cart-count");
+      let totalProducts = cart.reduce((sum, item) => sum + item.cantidad, 0);
+      cartCount.textContent = totalProducts;
+    });
+  </script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
