@@ -1,0 +1,77 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+  color: #d62828;
+}
+
+.filter-buttons {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.filter-buttons button {
+  margin: 5px;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #d62828;
+  color: white;
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+.filter-buttons button:hover {
+  background: #a4161a;
+}
+
+.promos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.promo-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  transition: transform 0.2s;
+}
+
+.promo-card:hover {
+  transform: scale(1.05);
+}
+
+.promo-card img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.promo-content {
+  padding: 15px;
+}
+
+.promo-content h3 {
+  margin: 0 0 10px;
+  color: #d62828;
+}
+
+.promo-content p {
+  font-size: 14px;
+  color: #444;
+}
+
+.price {
+  font-size: 18px;
+  font-weight: bold;
+  color: #1a8917;
+  margin-top: 10px;
+}
