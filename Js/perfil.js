@@ -2,45 +2,80 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("perfilForm");
   const mensaje = document.getElementById("mensajePerfil");
 
-  const nombre = document.getElementById("perfilNombre");
-  const email = document.getElementById("perfilEmail");
-  const direccion = document.getElementById("perfilDireccion");
-  const pass = document.getElementById("perfilPass");
-  const confirm = document.getElementById("perfilConfirm");
+  const campos = {
+    nombre: document.getElementById("perfilNombre"),
+    email: document.getElementById("perfilEmail"),
+    direccion: document.getElementById("perfilDireccion"),
+    pass: document.getElementById("perfilPass"),
+    confirm: document.getElementById("perfilConfirm")
+  };
 
   const passRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,18}$/;
+
+  const strengthBar = document.querySelector("#passwordStrength");
+  const strengthFill = strengthBar.querySelector(".progress-bar");
+
+
+  Object.values(campos).forEach(campo => {
+    campo.addEventListener("input", () => {
+      campo.classList.remove("is-invalid");
+    });
+  });
+
+
+  campos.pass.addEventListener("input", () => {
+    const val = campos.pass.value;
+    strengthBar.classList.toggle("d-none", val === "");
+
+    let strength = 0;
+    if (val.length >= 6) strength++;
+    if (/[A-Z]/.test(val)) strength++;
+    if (/\d/.test(val)) strength++;
+    if (/[@$!%*?&]/.test(val)) strength++;
+
+    const colors = ["danger", "warning", "info", "success"];
+    strengthFill.style.width = `${(strength / 4) * 100}%`;
+    strengthFill.className = `progress-bar bg-${colors[strength - 1] || "danger"}`;
+  });
+
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     let valido = true;
 
     // Nombre
-    if (nombre.value.trim() === "") { nombre.classList.add("is-invalid"); valido = false; }
-    else nombre.classList.remove("is-invalid");
+    if (campos.nombre.value.trim() === "") {
+      campos.nombre.classList.add("is-invalid"); valido = false;
+    }
 
     // Email
-    if (!email.checkValidity()) { email.classList.add("is-invalid"); valido = false; }
-    else email.classList.remove("is-invalid");
+    if (!campos.email.checkValidity()) {
+      campos.email.classList.add("is-invalid"); valido = false;
+    }
 
     // Dirección
-    if (direccion.value.trim().length < 5) { direccion.classList.add("is-invalid"); valido = false; }
-    else direccion.classList.remove("is-invalid");
-
-    // Contraseña (opcional)
-    if (pass.value !== "") {
-      if (!passRegex.test(pass.value)) { pass.classList.add("is-invalid"); valido = false; }
-      else pass.classList.remove("is-invalid");
-
-      if (confirm.value !== pass.value || confirm.value === "") {
-        confirm.classList.add("is-invalid"); valido = false;
-      } else confirm.classList.remove("is-invalid");
+    if (campos.direccion.value.trim().length < 5) {
+      campos.direccion.classList.add("is-invalid"); valido = false;
     }
+
+    // Contraseña opcional
+    if (campos.pass.value !== "") {
+      if (!passRegex.test(campos.pass.value)) {
+        campos.pass.classList.add("is-invalid"); valido = false;
+      }
+      if (campos.confirm.value !== campos.pass.value || campos.confirm.value === "") {
+        campos.confirm.classList.add("is-invalid"); valido = false;
+      }
+    }
+
 
     if (valido) {
       mensaje.className = "alert alert-success";
       mensaje.textContent = "✅ Perfil actualizado correctamente.";
       mensaje.classList.remove("d-none");
-      setTimeout(() => mensaje.classList.add("d-none"), 2000);
+      setTimeout(() => mensaje.classList.add("d-none"), 2500);
+      form.reset();
+      strengthBar.classList.add("d-none");
     } else {
       mensaje.className = "alert alert-danger";
       mensaje.textContent = "❌ Corrige los errores antes de guardar.";
