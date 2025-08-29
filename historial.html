@@ -8,6 +8,9 @@
 </head>
 <body>
 
+<!-- Header dinámico -->
+<div id="header"></div>
+
 <div class="container my-5">
   <h1 class="text-center mb-4">Historial de Compras</h1>
   <div id="historial" class="mb-4"></div>
@@ -16,44 +19,60 @@
   </div>
 </div>
 
+<!-- Footer dinámico -->
+<div id="footer"></div>
+
+<script src="/Js/footerandheader.js"></script>
 <script>
-  const historialContainer = document.getElementById('historial');
-  const history = JSON.parse(localStorage.getItem('history')) || [];
+  document.addEventListener("DOMContentLoaded", () => {
+    const historialContainer = document.getElementById('historial');
+    const activeUser = JSON.parse(localStorage.getItem("activeUser"));
 
-  if (history.length === 0) {
-    historialContainer.innerHTML = '<p class="text-center">No hay compras registradas.</p>';
-  } else {
-    history.forEach((compra, index) => {
-      let productosHTML = '';
-      compra.productos.forEach(item => {
-        productosHTML += `
-          <li>${item.titulo} - Cantidad: ${item.cantidad} - Precio unitario: ${item.precio}</li>
+    if(!activeUser){
+      historialContainer.innerHTML = '<p class="text-center">Debes iniciar sesión para ver tu historial.</p>';
+      document.getElementById('clear-history').style.display = "none";
+      return;
+    }
+
+    const historyKey = `history_${activeUser.usuario}`;
+    const history = JSON.parse(localStorage.getItem(historyKey)) || [];
+
+    if (history.length === 0) {
+      historialContainer.innerHTML = '<p class="text-center">No hay compras registradas.</p>';
+    } else {
+      history.forEach((compra, index) => {
+        let productosHTML = '';
+        compra.productos.forEach(item => {
+          productosHTML += `
+            <li>${item.titulo} - Cantidad: ${item.cantidad} - Precio unitario: ${item.precio}</li>
+          `;
+        });
+
+        const compraCard = `
+          <div class="card mb-4">
+            <div class="card-header">
+              Compra ${index + 1} - Fecha: ${compra.fecha}
+            </div>
+            <div class="card-body">
+              <ul>
+                ${productosHTML}
+              </ul>
+              <p class="fw-bold">Total: $${compra.total.toLocaleString()}</p>
+            </div>
+          </div>
         `;
+        historialContainer.innerHTML += compraCard;
       });
+    }
 
-      const compraCard = `
-        <div class="card mb-4">
-          <div class="card-header">
-            Compra ${index + 1} - Fecha: ${compra.fecha}
-          </div>
-          <div class="card-body">
-            <ul>
-              ${productosHTML}
-            </ul>
-            <p class="fw-bold">Total: $${compra.total.toLocaleString()}</p>
-          </div>
-        </div>
-      `;
-      historialContainer.innerHTML += compraCard;
+    // Vaciar historial
+    document.getElementById('clear-history').addEventListener('click', () => {
+      localStorage.removeItem(historyKey);
+      localStorage.removeItem(`cart_${activeUser.usuario}`);
+      historialContainer.innerHTML = '<p class="text-center">No hay compras registradas.</p>';
+      alert('Historial borrado!');
+      updateHeaderCartCount(); // actualizar contador en header
     });
-  }
-
-  // Vaciar historial
-  document.getElementById('clear-history').addEventListener('click', () => {
-    localStorage.removeItem('history');
-    localStorage.removeItem('cart');
-    historialContainer.innerHTML = '<p class="text-center">No hay compras registradas.</p>';
-    alert('Historial borrado!');
   });
 </script>
 

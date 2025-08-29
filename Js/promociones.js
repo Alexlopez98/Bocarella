@@ -37,46 +37,38 @@ const promosData = [
   }
 ];
 
-// Contador de productos en el carrito
-const cartCount = document.getElementById('cart-count');
-
-// Función para actualizar el contador desde LocalStorage
-function updateCartCount() {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
-  let totalProducts = cart.reduce((sum, item) => sum + item.cantidad, 0);
-  if(cartCount) cartCount.textContent = totalProducts;
+// Contador del carrito (header)
+function updateCartCountPromos() {
+  if(window.updateHeaderCartCount) window.updateHeaderCartCount();
 }
 
-// Renderizar pizzas
+// Renderizar promociones
 function renderPromos() {
   const container = document.getElementById("promos");
   container.innerHTML = "";
 
   promosData.forEach(pizza => {
-    const card = `
-      <div class="col-md-4 mb-4">
-        <div class="card h-100" data-category="${pizza.categoria}">
-          <img src="${pizza.img}" class="card-img-top" alt="${pizza.titulo}">
-          <div class="card-body">
-            <h5 class="card-title">${pizza.titulo}</h5>
-            <p class="card-text">${pizza.descripcion}</p>
-            <button class="btn btn-success add-to-cart">Comprar</button>
-          </div>
-          <ul class="list-group list-group-flush">
-            <li class="list-group-item">Categoría: ${pizza.categoria}</li>
-            <li class="list-group-item">Precio: ${pizza.precio}</li>
-          </ul>
+    const card = document.createElement("div");
+    card.classList.add("col-md-4", "mb-4");
+    card.innerHTML = `
+      <div class="card h-100" data-category="${pizza.categoria}">
+        <img src="${pizza.img}" class="card-img-top" alt="${pizza.titulo}">
+        <div class="card-body">
+          <h5 class="card-title">${pizza.titulo}</h5>
+          <p class="card-text">${pizza.descripcion}</p>
+          <button class="btn btn-success add-to-cart">Comprar</button>
         </div>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Categoría: ${pizza.categoria}</li>
+          <li class="list-group-item">Precio: ${pizza.precio}</li>
+        </ul>
       </div>
     `;
-    container.innerHTML += card;
-  });
+    container.appendChild(card);
 
-  // Agregar evento a los botones de comprar
-  const addButtons = document.querySelectorAll(".add-to-cart");
-  addButtons.forEach((btn, index) => {
-    btn.addEventListener("click", () => {
-      addToCartLS(promosData[index]);
+    // Evento de agregar al carrito
+    card.querySelector(".add-to-cart").addEventListener("click", () => {
+      addToCartLS(pizza);
     });
   });
 }
@@ -90,22 +82,20 @@ function filterPromos(category) {
   });
 }
 
-// Agregar al carrito usando LocalStorage
+// Agregar al carrito usando funciones de carrito.js
 function addToCartLS(pizza) {
-  let cart = JSON.parse(localStorage.getItem("cart")) || [];
+  let cart = getCart();
   const existing = cart.find(item => item.titulo === pizza.titulo);
-  if (existing) {
-    existing.cantidad += 1;
-  } else {
-    cart.push({ ...pizza, cantidad: 1 });
-  }
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount();
+  if (existing) existing.cantidad += 1;
+  else cart.push({ ...pizza, cantidad: 1 });
+
+  saveCart(cart);
+  updateCartCountPromos();
   alert(`${pizza.titulo} agregado al carrito! 🛒`);
 }
 
 // Inicializar
 document.addEventListener("DOMContentLoaded", () => {
   renderPromos();
-  updateCartCount(); // Mostrar contador al cargar la página
+  updateCartCountPromos();
 });

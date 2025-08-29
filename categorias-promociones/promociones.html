@@ -8,116 +8,53 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
   <link rel="stylesheet" href="/Css/promociones.css">
-  <style>
-    /* Contador del carrito */
-    #cart-count {
-      background: #d62828;
-      color: white;
-      font-weight: bold;
-      border-radius: 40%;
-      padding: 4px 8px;
-      position: absolute;
-      top: -1px;
-      right: -0px;
-      font-size: 12px;
-    }
-
-    /* Posición flotante del carrito */
-    #cart-link {
-      position: fixed;
-      top: 23px;
-      right: 30px;
-      z-index: 1000;
-    }
-
-    #cart-link img {
-      width: 50px;
-      height: 50px;
-    }
-  </style>
 </head>
 
 <body>
-    <div id="header"></div>
 
-    <div class="divider"></div>
+  <!-- Header dinámico -->
+  <div id="header"></div>
 
-    <!-- HEADER -->
-    <nav class="navbar navbar-expand-lg navbar-light headerID">
-        <div class="container-fluid">
+  <h1 class="text-center my-4">Promociones de Pizza</h1>
 
-            <div class="d-flex align-items-center">
-                <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row">
-                    <li class="nav-item me-3">
-                        <a class="nav-link" href="#" data-page="inicio.html">Inicio</a>
-                    </li>
-                    <li class="nav-item me-3">
-                        <a class="nav-link" href="#" data-page="categorias-promociones/promociones.html">Promociones</a>
-                    </li>
-                    <li class="nav-item me-3">
-                        <a class="nav-link" href="#" data-page="pizzas.html">Pizzas</a>
-                    </li>
-                    <li class="nav-item me-3">
-                        <a class="nav-link" href="#" data-page="acompanamientos.html">Acompañamientos</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" data-page="extras.html">Extras</a>
-                    </li>
-                </ul>
-            </div>
+  <div class="text-center mb-4 filter-buttons">
+    <button onclick="filterPromos('all')" class="btn btn-danger">Todas</button>
+    <button onclick="filterPromos('2x1')" class="btn btn-warning">2x1</button>
+    <button onclick="filterPromos('familiar')" class="btn btn-success">Familiar</button>
+    <button onclick="filterPromos('individual')" class="btn btn-info">Individual</button>
+  </div>
 
-            <div class="d-flex align-items-center ms-auto">
-                <a class="nav-link me-2" href="#">Ingresa</a>
-                <a href="#">
-                    <img src="Img/NOPICTURE.png" alt="Perfil" class="perfil-img">
-                </a>
-            </div>
-
-        </div>
-    </nav>
-
-    <div class="divider"></div>
-
-    <!-- CONTENEDOR DINÁMICO -->
-    <div id="main-content" class="main-content">
-        <!-- Aquí se cargará el contenido de cada sección -->
+  <!-- Contenedor de promociones -->
+  <div class="container">
+    <div class="row" id="promos">
+      <!-- Las promociones se generarán dinámicamente desde JS -->
     </div>
+  </div>
 
-    <div id="footer"></div>
 
-    <script>
-    // --- Sistema SPA casero ---
-    const content = document.getElementById("main-content");
 
-    async function loadPage(page) {
-        try {
-            const response = await fetch(page);
-            if (!response.ok) throw new Error("No se pudo cargar " + page);
-            const html = await response.text();
-            content.innerHTML = html;
-        } catch (err) {
-            content.innerHTML = "<p>Error cargando la página: " + err.message + "</p>";
+  <!-- Footer dinámico -->
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="/Js/footerandheader.js"></script>
+  <script src="/Js/carrito.js"></script>
+  <script src="/Js/promociones.js"></script>
+
+  <script>
+    // Refrescar contador y total cuando cargue la página
+    document.addEventListener("DOMContentLoaded", () => {
+      setTimeout(() => {
+        if (typeof updateCartCount === "function") {
+          updateCartCount();
         }
-    }
-
-    // Detectar clic en links con data-page
-    document.querySelectorAll("[data-page]").forEach(link => {
-        link.addEventListener("click", (e) => {
-            e.preventDefault();
-            const page = e.currentTarget.getAttribute("data-page"); // 👈 más seguro
-            loadPage(page);
-        });
+        if (typeof updateCartTotal === "function") {
+          updateCartTotal();
+        }
+      }, 300);
     });
+  </script>
 
-    // Cargar por defecto la página de inicio (NO index.html completo)
-    loadPage("categorias-inicio/inicio.html");
-</script>
-
-
-    <script src="Js/DATABASES/DBBANNERS.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="Js/footerandheader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
-
-
 </html>

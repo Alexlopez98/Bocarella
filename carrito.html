@@ -19,10 +19,17 @@
     }
     #cart-items img {
       border-radius: 5px;
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      margin-right: 10px;
     }
   </style>
 </head>
 <body>
+
+  <!-- Header dinámico -->
+  <div id="header"></div>
 
   <div class="container mt-4">
     <h3>Carrito de Compras</h3>
@@ -34,11 +41,27 @@
     </div>
   </div>
 
+  <!-- Footer dinámico -->
+  <div id="footer"></div>
+
+  <!-- Scripts -->
+  <script src="/Js/footerandheader.js"></script>
   <script src="/Js/carrito.js"></script>
+
   <script>
-    // Conectar botón de checkout con la función del JS
+    // Vincular botones
     document.getElementById("checkout-cart").addEventListener("click", () => {
-      checkoutCart(); // función definida en carrito.js
+      checkoutCart();
+    });
+    document.getElementById("clear-cart").addEventListener("click", () => {
+      clearCart();
+    });
+
+    // Inicializar contador y renderizar
+    document.addEventListener("DOMContentLoaded", () => {
+      renderCart();
+      updateCartCount();
+      updateCartTotal();
     });
   </script>
 

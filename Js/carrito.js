@@ -1,16 +1,25 @@
 // ===============================
-// FUNCIONES DEL CARRITO
+// FUNCIONES DEL CARRITO POR USUARIO
 // ===============================
 
-// Leer carrito desde LocalStorage
-function getCart() {
-  return JSON.parse(localStorage.getItem("cart")) || [];
+// Obtener la key del usuario activo
+function getActiveUserKey() {
+  const activeUser = JSON.parse(localStorage.getItem("activeUser"));
+  return activeUser ? `cart_${activeUser.usuario}` : "cart_guest";
 }
 
-// Guardar carrito en LocalStorage
+// Leer carrito desde LocalStorage según usuario
+function getCart() {
+  const key = getActiveUserKey();
+  return JSON.parse(localStorage.getItem(key)) || [];
+}
+
+// Guardar carrito en LocalStorage según usuario
 function saveCart(cart) {
-  localStorage.setItem("cart", JSON.stringify(cart));
-  updateCartCount(); // actualizar contador flotante
+  const key = getActiveUserKey();
+  localStorage.setItem(key, JSON.stringify(cart));
+  updateCartCount(); // actualizar contador flotante en header
+  if(window.updateHeaderCartCount) window.updateHeaderCartCount();
 }
 
 // Contador del carrito flotante
@@ -26,7 +35,6 @@ function updateCartCount() {
 function renderCart() {
   const cartList = document.getElementById("cart-items");
   const cartTotal = document.getElementById("cart-total");
-
   if (!cartList || !cartTotal) return;
 
   cartList.innerHTML = "";
@@ -88,7 +96,7 @@ document.getElementById("clear-cart")?.addEventListener("click", () => {
   }
 });
 
-// Finalizar compra y registrar historial con fecha y total
+// Finalizar compra y registrar historial por usuario
 function checkoutCart() {
   let cart = getCart();
   if(cart.length === 0){
@@ -102,23 +110,30 @@ function checkoutCart() {
   }, 0);
 
   const fecha = new Date().toLocaleString();
+  const activeUser = JSON.parse(localStorage.getItem("activeUser"));
 
-  // Guardar historial
-  let history = JSON.parse(localStorage.getItem("history")) || [];
+  if(!activeUser){
+    alert("Debes iniciar sesión para finalizar la compra");
+    window.location.href = "acceso.html"; // redirige a login
+    return;
+  }
+
+  // Guardar historial por usuario
+  const historyKey = `history_${activeUser.usuario}`;
+  let history = JSON.parse(localStorage.getItem(historyKey)) || [];
   history.push({
     fecha: fecha,
     productos: [...cart],
     total: total
   });
-  localStorage.setItem("history", JSON.stringify(history));
+  localStorage.setItem(historyKey, JSON.stringify(history));
 
-  // Vaciar carrito
-  saveCart([]);
+  saveCart([]); // vaciar carrito
   renderCart();
   alert(`Compra realizada con éxito! Total: $${total.toLocaleString('es-CL')}`);
 }
 
-// Inicializar al cargar
+// Inicializar al cargar la página
 document.addEventListener("DOMContentLoaded", () => {
   renderCart();
   updateCartCount();
