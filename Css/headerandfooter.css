@@ -1,38 +1,72 @@
+/* =======================
+   HEADER PRINCIPAL
+======================= */
 .headerID {
-    background-color: rgb(0, 104, 5);
-    color: white;
+  background-color: rgb(0, 104, 5);
+  color: white;
+  position: relative;
+  z-index: 1000;
 }
 
-.footer1id{
-    background-color: rgb(227, 239, 179);
+/* =======================
+   SUBHEADER FIJO
+======================= */
+.subheader {
+  position: fixed;
+  top: 0; 
+  left: 0;
+  width: 100%;
+  z-index: 999;
+  background-color: rgb(0, 84, 4);
+  transition: top 0.5s ease-in-out; 
 }
 
-.headerID .nav-link {
-    color: #ffffff;
-    font-weight: 500;
+/* =======================
+   LINKS HEADER Y SUBHEADER
+======================= */
+.headerID .nav-link,
+.subheader .nav-link {
+  color: #ffffff;
+  font-weight: 500;
 }
 
-.headerID .nav-link:hover {
-    color: #c0ffc0;
-    text-decoration: underline;
+.headerID .nav-link:hover,
+.subheader .nav-link:hover {
+  color: #c0ffc0;
+  text-decoration: underline;
 }
 
-.headerID .nav-item.id1 .nav-link {
-    color: #ffffff;
-}
-
-.headerID .nav-item.id1 .nav-link:hover {
-    color: #c0ffc0;
-}
-
+/* =======================
+   DROPDOWNS
+======================= */
 .navbar-nav .dropdown-menu {
-    position: absolute;     
-    top: 100%;              
-    right: 0;              
-    z-index: 1050;          
+  position: absolute;     
+  top: 100%;              
+  right: 0;              
+  z-index: 1050;          
 }
-
 
 .navbar-nav .nav-item.dropdown {
-    position: relative;     
+  position: relative;     
+}
+
+/* =======================
+   FOOTER
+======================= */
+.footer1id {
+  background-color: rgb(227, 239, 179); 
+  color: #333;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.footer1id a {
+  color: #333;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.footer1id a:hover {
+  color: rgb(0, 104, 5); 
+  text-decoration: underline;
 }

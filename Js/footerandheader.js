@@ -6,7 +6,36 @@ async function loadHTML(id, file) {
     const content = await response.text();
     document.getElementById(id).innerHTML = content;
 
-    if (id === "header") updateHeader();
+    if (id === "header") {
+      updateHeader();
+
+      // ===============================
+      // SUBHEADER FIJO ABAJO DEL HEADER Y PEGADO AL TOP AL SCROLL
+      // ===============================
+      setTimeout(() => {
+        const subHeader = document.getElementById("subHeader");
+        const mainHeader = document.getElementById("mainHeader");
+        if (!subHeader || !mainHeader) return;
+
+        const headerHeight = mainHeader.offsetHeight;
+
+        // Posición inicial del subheader debajo del header
+        subHeader.style.top = `${headerHeight}px`;
+
+        window.addEventListener("scroll", () => {
+          const scrollTop = window.scrollY;
+
+          if (scrollTop < headerHeight) {
+            // Parte superior: subheader debajo del header
+            subHeader.style.top = `${headerHeight}px`;
+          } else {
+            // Bajando: subheader pegado al top
+            subHeader.style.top = "0px";
+          }
+        });
+      }, 50);
+    }
+
   } catch (error) {
     console.error(error);
   }
@@ -40,15 +69,15 @@ function updateHeader() {
     if (logoutBtn) logoutBtn.style.display = "none";
   }
 
-  // Actualizar contador del carrito en header
+  // Actualizar contador del carrito
   if (typeof updateHeaderCartCount === "function") updateHeaderCartCount();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadHTML("header","/header.html");
+  loadHTML("header", "/header.html");
   loadHTML("footer", "/footer.html");
 
-  // Función global para refrescar el contador en todas las páginas
+  // Contador global carrito
   window.updateHeaderCartCount = function() {
     const cartCount = document.getElementById("cart-count");
     if (!cartCount) return;
