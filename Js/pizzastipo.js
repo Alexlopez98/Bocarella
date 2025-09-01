@@ -4,21 +4,21 @@ const pizzasData = [
     titulo: "Pizza Margarita",
     descripcion: "Clásica con salsa de tomate, mozzarella y albahaca.",
     precios: { individual: 5990, mediana: 7990, familiar: 9990 },
-    img: "/Img/margarita.png",
+    img: "../img/margarita.jpeg",
     ingredientes: ["Extra Queso", "Champiñones", "Aceitunas", "Tomates Cherry"]
   },
   {
     titulo: "Pizza Pepperoni",
     descripcion: "Mozzarella y mucho pepperoni.",
     precios: { individual: 6990, mediana: 8990, familiar: 10990 },
-    img: "/Img/pepperoni.png",
+    img: "../img/pepperoni.jpeg",
     ingredientes: ["Extra Queso", "Orégano", "Jalapeños", "Cebolla"]
   },
   {
     titulo: "Pizza Hawaiana",
     descripcion: "Jamón, piña y mozzarella.",
     precios: { individual: 6490, mediana: 8490, familiar: 10490 },
-    img: "/Img/hawaiana.png",
+    img: "../img/hawaiana.avif",
     ingredientes: ["Extra Queso", "Champiñones", "Pimientos", "Tocino"]
   }
 ];

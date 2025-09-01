@@ -3,14 +3,14 @@ const acompanamientosData = [
     titulo: "Papas Fritas",
     descripcion: "Crujientes y doradas, perfectas para acompañar tu pizza.",
     precios: { pequeño: 1990, mediano: 2990, grande: 3990 },
-    img: "/Img/papas.png",
+    img: "../img/papasfritas.jpg",
     extras: ["Salsa BBQ", "Salsa Cheddar", "Salsa Picante"]
   },
   {
     titulo: "Alitas de Pollo",
     descripcion: "Jugosas alitas bañadas en salsa.",
     precios: { pequeño: 3990, mediano: 5490, grande: 6990 },
-    img: "/Img/alitas.png",
+    img: "../img/alitaspollo.avif",
     extras: ["Salsa Picante", "Salsa Ajo Parmesano", "Salsa Miel Mostaza"]
   },
 ];

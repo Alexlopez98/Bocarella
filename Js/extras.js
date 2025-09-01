@@ -1,10 +1,10 @@
 const extrasData = [
-  { titulo: "Brownie con Helado", descripcion: "Brownie de chocolate con bola de helado de vainilla.", precio: 2990, img: "/Img/brownie.png" },
-  { titulo: "Tiramisú", descripcion: "Postre italiano con café y mascarpone.", precio: 3490, img: "/Img/tiramisu.png" },
-  { titulo: "Cheesecake Frutilla", descripcion: "Tarta de queso con salsa de frutilla fresca.", precio: 3290, img: "/Img/cheesecake.png" },
-  { titulo: "Bebida en lata", descripcion: "Variedades de 350 ml.", precio: 1200, img: "/Img/lata.png", sabores: ["Coca-Cola", "Sprite", "Fanta", "Coca-Cola Zero"] },
-  { titulo: "Bebida botella 1.5L", descripcion: "Refrescos clásicos en formato familiar.", precio: 2500, img: "/Img/botella.png", sabores: ["Coca-Cola", "Sprite", "Fanta", "Coca-Cola Zero"] },
-  { titulo: "Jugo natural", descripcion: "Jugo de frutas naturales.", precio: 1800, img: "/Img/jugo.png", sabores: ["Naranja", "Frutilla", "Durazno"] }
+  { titulo: "Brownie con Helado", descripcion: "Brownie de chocolate con bola de helado de vainilla.", precio: 2990, img: "../img/browniehelado.png" },
+  { titulo: "Tiramisú", descripcion: "Postre italiano con café y mascarpone.", precio: 3490, img: "../img/tiramisu.webp" },
+  { titulo: "Cheesecake Frutilla", descripcion: "Tarta de queso con salsa de frutilla fresca.", precio: 3290, img: "../img/cheesecakefrutilla.webp" },
+  { titulo: "Bebida en lata", descripcion: "Variedades de 350 ml.", precio: 1200, img: "../img/bebidas.jpg", sabores: ["Coca-Cola", "Sprite", "Fanta", "Coca-Cola Zero"] },
+  { titulo: "Bebida botella 1.5L", descripcion: "Refrescos clásicos en formato familiar.", precio: 2500, img: "../img/bebidas-1.5lt-t.webp", sabores: ["Coca-Cola", "Sprite", "Fanta", "Coca-Cola Zero"] },
+  { titulo: "Jugo natural", descripcion: "Jugo de frutas naturales.", precio: 1800, img: "../img/jugonatural.webp", sabores: ["Naranja", "Frutilla", "Durazno"] }
 ];
 
 function renderExtras() {

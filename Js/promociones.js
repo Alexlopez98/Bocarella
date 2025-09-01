@@ -1,12 +1,6 @@
 // 1. Base de datos de pizzas
 const promosData = [
-  {
-    titulo: "pizza gamer",
-    descripcion: "La mejor pizza para ratas 2x1 pizza pepperoni",
-    categoria: "2x1",
-    precio: "$19.990",
-    img: "../Img/pizzagamer.jpg"
-  },
+ 
   {
     titulo: "pizza gamer",
     descripcion: "La mejor pizza para ratas 2x1 pizza pepperoni",
@@ -19,7 +13,7 @@ const promosData = [
     descripcion: "La mejor pizza de toda Italia",
     categoria: "familiar",
     precio: "$12.990",
-    img: "/Img/BOCA.png"
+    img: "../img/pepperoni.jpeg"
   },
   {
     titulo: "Super Dúo",
@@ -33,7 +27,7 @@ const promosData = [
     descripcion: "Ideal para disfrutar solo ",
     categoria: "individual",
     precio: "$5.990",
-    img: "/Img/hawaiana.png"
+    img: "../img/hawaiana.avif"
   }
 ];
 
