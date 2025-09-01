@@ -9,27 +9,21 @@ async function loadHTML(id, file) {
     if (id === "header") {
       updateHeader();
 
-      // ===============================
-      // SUBHEADER FIJO ABAJO DEL HEADER Y PEGADO AL TOP AL SCROLL
-      // ===============================
+      // Subheader flotante debajo del header
       setTimeout(() => {
         const subHeader = document.getElementById("subHeader");
         const mainHeader = document.getElementById("mainHeader");
         if (!subHeader || !mainHeader) return;
 
         const headerHeight = mainHeader.offsetHeight;
-
-        // Posición inicial del subheader debajo del header
         subHeader.style.top = `${headerHeight}px`;
 
+        // Scroll handler
         window.addEventListener("scroll", () => {
           const scrollTop = window.scrollY;
-
           if (scrollTop < headerHeight) {
-            // Parte superior: subheader debajo del header
             subHeader.style.top = `${headerHeight}px`;
           } else {
-            // Bajando: subheader pegado al top
             subHeader.style.top = "0px";
           }
         });
@@ -69,10 +63,10 @@ function updateHeader() {
     if (logoutBtn) logoutBtn.style.display = "none";
   }
 
-  // Actualizar contador del carrito
   if (typeof updateHeaderCartCount === "function") updateHeaderCartCount();
 }
 
+// DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
   loadHTML("header", "/header.html");
   loadHTML("footer", "/footer.html");

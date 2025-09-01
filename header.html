@@ -1,50 +1,58 @@
-<!-- HEADER NORMAL -->
+<!-- HEADER PRINCIPAL -->
 <nav class="navbar navbar-expand-lg navbar-light headerID" id="mainHeader">
   <div class="container-fluid">
-    <!-- Logo y links a la izquierda -->
-    <div class="d-flex align-items-center">
-      <a class="navbar-brand me-3" href="/Index.html">
-        <img src="../Img/BOCA.png" alt="Logo" width="70" height="70">
-        <img src="../Img/labocarella.png" alt="Logo" width="120">
-      </a>
-      <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row">
-        <li class="nav-item me-3"><a class="nav-link" href="/Index.html">Menú</a></li>
-        <li class="nav-item"><a class="nav-link" href="/historial.html">Pedidos</a></li>
-      </ul>
-    </div>
+    <!-- Logo -->
+    <a class="navbar-brand me-3" href="/Index.html">
+      <img src="../Img/BOCA.png" alt="Logo" width="70" height="70">
+      <img src="../Img/labocarella.png" alt="Logo" width="120">
+    </a>
 
-    <div class="d-flex align-items-center ms-auto">
-      
-      <!-- Ingresa y perfil -->
-      <ul class="navbar-nav ms-auto">
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle ingresa" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            Ingresa
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-            <li><a class="dropdown-item" href="/perfil.html">Mi Perfil</a></li>
-            <li><hr class="dropdown-divider"></li>
-            <li><button class="dropdown-item" id="logoutBtn">Cerrar sesión</button></li>
-          </ul>
-        </li>
-      </ul>
-    </div>
+    <!-- Links principales -->
+    <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row">
+      <li class="nav-item me-3"><a class="nav-link" href="/Index.html">Menú</a></li>
+      <li class="nav-item"><a class="nav-link" href="/historial.html">Pedidos</a></li>
+    </ul>
+
+    <!-- Login/Perfil -->
+    <ul class="navbar-nav ms-auto">
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle ingresa" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+          Ingresa
+        </a>
+        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+          <li><a class="dropdown-item" href="/perfil.html">Mi Perfil</a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li><button class="dropdown-item" id="logoutBtn">Cerrar sesión</button></li>
+        </ul>
+      </li>
+    </ul>
   </div>
 </nav>
 
-<!-- SUBHEADER FIJO DEBAJO DEL HEADER -->
+<!-- SUBHEADER -->
 <nav class="navbar navbar-expand-lg navbar-light subheader" id="subHeader">
   <div class="container-fluid">
-    <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex flex-row flex-nowrap">
-      <li class="nav-item me-3"><a class="nav-link" href="/Index.html">Inicio</a></li>
-      <li class="nav-item me-3"><a class="nav-link" href="/categorias-promociones/promociones.html">Promociones</a></li>
-      <li class="nav-item me-3"><a class="nav-link" href="/pizzas.html">Pizzas</a></li>
-      <li class="nav-item me-3"><a class="nav-link" href="/acompañamientos.html">Acompañamientos</a></li>
-      <li class="nav-item me-3"><a class="nav-link" href="/extras.html">Extras</a></li>
-    </ul>
-    <!-- Carrito -->
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#subNavContent" aria-controls="subNavContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Links del subheader -->
+    <div class="collapse navbar-collapse flex-column" id="subNavContent">
+      <ul class="navbar-nav mb-2 mb-lg-0 w-100">
+        <li class="nav-item"><a class="nav-link" href="/Index.html">Inicio</a></li>
+        <li class="nav-item"><a class="nav-link" href="/categorias-promociones/promociones.html">Promociones</a></li>
+        <li class="nav-item"><a class="nav-link" href="/pizzas.html">Pizzas</a></li>
+        <li class="nav-item"><a class="nav-link" href="/acompañamientos.html">Acompañamientos</a></li>
+        <li class="nav-item"><a class="nav-link" href="/extras.html">Extras</a></li>
+      </ul>
+    </div>
+
+    <!-- Carrito siempre visible -->
+    <div class="d-flex align-items-center ms-auto">
       <a href="/carrito.html" class="nav-link">
         Carrito <span id="cart-count" class="badge bg-danger">0</span>
       </a>
+    </div>
   </div>
 </nav>
