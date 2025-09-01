@@ -21,6 +21,14 @@
   transition: top 0.5s ease-in-out; 
 }
 
+.subheader .nav-link {
+  margin-right: 15px;
+}
+
+.subheader .d-flex.align-items-center {
+  margin-left: auto;
+}
+
 /* =======================
    LINKS HEADER Y SUBHEADER
 ======================= */
