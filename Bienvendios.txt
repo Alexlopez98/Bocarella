@@ -1,8 +1,51 @@
-Administraremos roles del proyecto bocarella.
-
 color: rgb(0, 104, 5);
 color: rgb(198, 60, 57); /* NO TOCAR COLORES PREDEFINIDOS DE LA PAGINA*/
 color: rgb(227, 239, 179);
 
-
 COLORES PARA LA PAGINA
+
+
+
+
+Equipo: Alexander López, Benjamin Bocaz, Johan López.
+Tema de desarrollo: Página web de pizzería “La Bocarella”
+
+Breve explicación:
+Nuestro proyecto consiste en desarrollar una página web para la pizzería “La Bocarella”.
+La web permitirá a los usuarios conocer los productos disponibles, sus precios y características. Hemos definido dos tipos de usuarios:
+
+Invitados: Pueden navegar por el sitio y ver los productos, pero no pueden realizar compras.
+
+Usuarios registrados: Pueden crear una cuenta, mantener un historial de pedidos y realizar compras a través de la plataforma.
+
+La idea es crear una experiencia amigable, con interfaz intuitiva y un sistema de compras funcional para los usuarios registrados, 
+mientras que los invitados solo podrán explorar la información del menú y promociones. Buscamos también integrar un sistema de autenticación 
+y un historial de pedidos para los usuarios registrados, asegurando un flujo completo de experiencia de compra.
+
+
+
+Roles:
+
+1. Frontend / Diseño de interfaz: Benjamin Bocaz
+
+Crear la estructura visual de la página (HTML/CSS/JS).
+
+Diseñar el menú, carrito y pantallas para invitados y usuarios registrados.
+
+Asegurar que la experiencia sea amigable y responsiva en móviles y computadores.
+
+2. Backend / Funcionalidad: Johan López
+
+Implementar registro, login y autenticación de usuarios.
+
+Gestionar el historial de pedidos de los usuarios registrados.
+
+Manejar la lógica de carrito de compras y procesamiento de pedidos.
+
+3. Contenido y Gestión del proyecto:  Alexander López
+
+Redacción de textos del sitio, descripciones de productos y promociones.
+
+Coordinación del equipo y organización de tareas.
+
+Subir avances al AVA y documentar los procesos y decisiones del desarrollo.
