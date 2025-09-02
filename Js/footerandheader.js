@@ -67,12 +67,12 @@ function updateHeader() {
       logoutBtn.style.display = "block";
       logoutBtn.onclick = () => {
         localStorage.removeItem("activeUser");
-        window.location.href = "/index.html";
+        window.location.href = "/Html-Paginas/index.html";
       };
     }
   } else {
     loginLink.innerHTML = 'Ingresa <i class="fa-regular fa-circle-user"></i> ';
-    loginLink.href = "/acceso.html";
+    loginLink.href = "/Html-Paginas/acceso.html";
     loginLink.classList.remove("dropdown-toggle");
     loginLink.removeAttribute("data-bs-toggle");
 
@@ -83,8 +83,8 @@ function updateHeader() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  loadHTML("header", "/header.html");
-  loadHTML("footer", "/footer.html");
+  loadHTML("header", "/Html-Paginas/Html-Subpaginas/header.html");
+  loadHTML("footer", "/Html-Paginas/Html-Subpaginas/footer.html");
 
   window.updateHeaderCartCount = function() {
     const activeUser = JSON.parse(localStorage.getItem("activeUser"));
