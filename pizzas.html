@@ -5,13 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Pizzas</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="Css/styleBocarella.css">
 </head>
 <body>
 
   <!-- Header dinámico -->
   <div id="header"></div>
 
-  <main class="container my-4">
+  <main class="container my-4 contenedor">
     <h1 class="text-center mb-4"> Pizzas</h1>
     <div class="row" id="pizzas"></div>
   </main>
@@ -31,29 +32,6 @@
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <script>
-  function ajustarPadding() {
-    const header = document.getElementById("header");
-    const main = document.querySelector("main");
-    if (header && main) {
-      main.style.paddingTop = header.offsetHeight + "px";
-    }
-  }
-
- 
-  const header = document.getElementById("header");
-  if (header) {
-    const observer = new MutationObserver(() => {
-      ajustarPadding();
-    });
-    observer.observe(header, { childList: true, subtree: true });
-  }
-
-
-  window.addEventListener("load", ajustarPadding);
-  window.addEventListener("resize", ajustarPadding);
-</script>
-
 </body>
 </html>
 

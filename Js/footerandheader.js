@@ -55,7 +55,7 @@ function updateHeader() {
       };
     }
   } else {
-    loginLink.textContent = "INGRESA";
+    loginLink.innerHTML = 'Ingresa <i class="fa-regular fa-circle-user"></i> ';
     loginLink.href = "/acceso.html";
     loginLink.classList.remove("dropdown-toggle");
     loginLink.removeAttribute("data-bs-toggle");

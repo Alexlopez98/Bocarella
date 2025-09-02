@@ -6,13 +6,12 @@
 }
 
 .bannerid{
-    margin-left: 10%;
+    margin-left: 12%;
     margin-right: 10%;
-    margin-top: 3%;
-    
 }
 .bannerid img {
-    border-radius: px;
+    border-radius: 10px;
+    object-fit: cover; 
 }
 
 body {
@@ -24,4 +23,15 @@ body {
 body.loaded {
     opacity: 1;
     transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  .bannerid{
+    margin-top: 1px;
+    
+ }
+}
+
+.contenido {
+    padding-top: 90px;
 }

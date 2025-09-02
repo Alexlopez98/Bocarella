@@ -76,3 +76,14 @@
   color: rgb(0, 104, 5);
   text-decoration: underline;
 }
+
+.carrito-css{
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.carrito-css2{
+  background-color: rgb(46, 158, 53);
+  padding: 8px;
+  border-radius: 20%;
+}

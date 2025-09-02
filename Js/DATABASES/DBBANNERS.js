@@ -1,7 +1,7 @@
 const carouselGames = [
-  { id: "DUOPEPPE", imagen: "../Img/BANNERS/PROMOS/DUOPEPPE.png", link: "zelda.html" },
-  { id: "DUOPEPPE2", imagen: "../Img/BANNERS/PROMOS/DUOPEPPE.png", link: "uncharted4.html" },
-  { id: "DUOPEPPE3", imagen: "../Img/BANNERS/PROMOS/DUOPEPPE.png", link: "dragonball.html" },
+  { id: "DUOPEPPE", imagen: "../Img/BANNERS/PROMOS/DUOPEPPE.png", link: "" },
+  { id: "DUOPEPPE2", imagen: "../Img/BANNERS/PROMOS/SUPERDUO.png", link: "" },
+  { id: "DUOPEPPE3", imagen: "../Img/BANNERS/PROMOS/PIZZAGAMER.png", link: "" },
 ];
 
 const indicatorsContainer = document.getElementById("carousel-indicators");

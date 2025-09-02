@@ -1,8 +1,6 @@
 /* ======= Estilo general ======= */
 body {
-    color: rgb(0, 104, 5);
-    color: rgb(198, 60, 57); /* NO TOCAR COLORES PREDEFINIDOS DE LA PAGINA */
-    color: rgb(227, 239, 179);
+    color: rgb(27, 26, 26);
 }
 
 .custom-bg {
@@ -113,4 +111,8 @@ h2 {
 #mensajeForm {
   font-weight: bold;
   text-align: center;
+}
+
+.contenedor{
+  padding-top: 60px;
 }
