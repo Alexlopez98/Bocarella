@@ -8,7 +8,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const telefono = document.getElementById("supTelefono");
   const mensaje = document.getElementById("supMensaje");
 
-  // ========= Validaciones =========
   function validarNombre() {
     nombre.classList.remove("is-valid", "is-invalid");
     if (nombre.value.trim() === "") nombre.classList.add("is-invalid");
@@ -25,12 +24,10 @@ document.addEventListener("DOMContentLoaded", () => {
     else mensaje.classList.add("is-valid");
   }
 
-  // Eventos en vivo
   nombre.addEventListener("input", validarNombre);
   email.addEventListener("input", validarEmail);
   mensaje.addEventListener("input", validarMensaje);
 
-  // ========= Submit =========
   form.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -48,17 +45,14 @@ document.addEventListener("DOMContentLoaded", () => {
         fecha: new Date().toLocaleString()
       };
 
-      // Guardar en localStorage
       let solicitudes = JSON.parse(localStorage.getItem("solicitudesSoporte")) || [];
       solicitudes.push(data);
       localStorage.setItem("solicitudesSoporte", JSON.stringify(solicitudes));
 
-      // Mostrar éxito
       mensajeSoporte.className = "alert alert-success";
       mensajeSoporte.textContent = "✅ Tu solicitud fue enviada. Te contactaremos pronto.";
       mensajeSoporte.classList.remove("d-none");
 
-      // Reset
       form.reset();
       form.querySelectorAll(".is-valid").forEach(el => el.classList.remove("is-valid"));
     } else {

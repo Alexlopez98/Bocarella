@@ -1,4 +1,4 @@
-// Cargar header y footer dinámicamente
+
 async function loadHTML(id, file) {
   try {
     const response = await fetch(file);
@@ -9,25 +9,42 @@ async function loadHTML(id, file) {
     if (id === "header") {
       updateHeader();
 
-      // Subheader flotante debajo del header
-      setTimeout(() => {
-        const subHeader = document.getElementById("subHeader");
-        const mainHeader = document.getElementById("mainHeader");
-        if (!subHeader || !mainHeader) return;
+      const subHeader = document.getElementById("subHeader");
+      if (!subHeader) return;
 
-        const headerHeight = mainHeader.offsetHeight;
-        subHeader.style.top = `${headerHeight}px`;
+      const showScroll = 155; 
+      let clonedSubHeader = null;
 
-        // Scroll handler
-        window.addEventListener("scroll", () => {
-          const scrollTop = window.scrollY;
-          if (scrollTop < headerHeight) {
-            subHeader.style.top = `${headerHeight}px`;
-          } else {
-            subHeader.style.top = "0px";
+      window.addEventListener("scroll", () => {
+        const scrollTop = window.scrollY;
+
+        if (scrollTop > showScroll) {
+          if (!clonedSubHeader) {
+            clonedSubHeader = subHeader.cloneNode(true);
+            clonedSubHeader.id = "subHeaderClone";
+            clonedSubHeader.style.position = "fixed";
+            clonedSubHeader.style.top = `-${subHeader.offsetHeight}px`;
+            clonedSubHeader.style.width = "100%";
+            clonedSubHeader.style.zIndex = "999";
+            clonedSubHeader.style.transition = "top 0.9s ease-out";
+            document.body.appendChild(clonedSubHeader);
+            clonedSubHeader.getBoundingClientRect();
+            clonedSubHeader.style.top = "0px";
+            updateHeaderCartCount();
           }
-        });
-      }, 50);
+        } else {
+          if (clonedSubHeader) {
+            clonedSubHeader.style.transition = "top 0.1s ease";
+            clonedSubHeader.style.top = `-${subHeader.offsetHeight}px`;
+            setTimeout(() => {
+              if (clonedSubHeader) {
+                clonedSubHeader.remove();
+                clonedSubHeader = null;
+              }
+            }, 500);
+          }
+        }
+      });
     }
 
   } catch (error) {
@@ -35,7 +52,6 @@ async function loadHTML(id, file) {
   }
 }
 
-// Actualizar header según sesión
 function updateHeader() {
   const activeUser = JSON.parse(localStorage.getItem("activeUser"));
   const loginLink = document.querySelector(".ingresa");
@@ -66,19 +82,20 @@ function updateHeader() {
   if (typeof updateHeaderCartCount === "function") updateHeaderCartCount();
 }
 
-// DOMContentLoaded
 document.addEventListener("DOMContentLoaded", () => {
   loadHTML("header", "/header.html");
   loadHTML("footer", "/footer.html");
 
-  // Contador global carrito
   window.updateHeaderCartCount = function() {
-    const cartCount = document.getElementById("cart-count");
-    if (!cartCount) return;
     const activeUser = JSON.parse(localStorage.getItem("activeUser"));
     const key = activeUser ? `cart_${activeUser.usuario}` : "cart_guest";
     const cart = JSON.parse(localStorage.getItem(key)) || [];
     const totalProducts = cart.reduce((sum, item) => sum + item.cantidad, 0);
-    cartCount.textContent = totalProducts;
+
+    const cartCountOriginal = document.querySelector("#cart-count");
+    if (cartCountOriginal) cartCountOriginal.textContent = totalProducts;
+
+    const cartCountClone = document.querySelector("#subHeaderClone #cart-count");
+    if (cartCountClone) cartCountClone.textContent = totalProducts;
   };
 });

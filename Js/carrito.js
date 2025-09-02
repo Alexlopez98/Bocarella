@@ -1,20 +1,16 @@
-// ===============================
-// FUNCIONES DEL CARRITO POR USUARIO
-// ===============================
 
-// Obtener la key del usuario activo
 function getActiveUserKey() {
   const activeUser = JSON.parse(localStorage.getItem("activeUser"));
   return activeUser ? `cart_${activeUser.usuario}` : "cart_guest";
 }
 
-// Leer carrito desde LocalStorage según usuario
+
 function getCart() {
   const key = getActiveUserKey();
   return JSON.parse(localStorage.getItem(key)) || [];
 }
 
-// Guardar carrito en LocalStorage según usuario
+
 function saveCart(cart) {
   const key = getActiveUserKey();
   localStorage.setItem(key, JSON.stringify(cart));
@@ -22,7 +18,7 @@ function saveCart(cart) {
   if (window.updateHeaderCartCount) window.updateHeaderCartCount();
 }
 
-// Contador del carrito flotante
+
 function updateCartCount() {
   const cartCount = document.getElementById("cart-count");
   if (!cartCount) return;
@@ -31,7 +27,7 @@ function updateCartCount() {
   cartCount.textContent = totalProducts;
 }
 
-// Renderizar carrito con imagen, botones + y -
+
 function renderCart() {
   const cartList = document.getElementById("cart-items");
   const cartTotal = document.getElementById("cart-total");
@@ -72,7 +68,7 @@ function renderCart() {
   updateCartCount();
 }
 
-// Aumentar cantidad
+
 function increaseQuantity(index) {
   let cart = getCart();
   cart[index].cantidad += 1;
@@ -80,7 +76,7 @@ function increaseQuantity(index) {
   renderCart();
 }
 
-// Disminuir cantidad
+
 function decreaseQuantity(index) {
   let cart = getCart();
   if (cart[index].cantidad > 1) {
@@ -92,7 +88,7 @@ function decreaseQuantity(index) {
   renderCart();
 }
 
-// Vaciar carrito
+
 function clearCart() {
   saveCart([]);
   renderCart();
@@ -100,7 +96,7 @@ function clearCart() {
 }
 document.getElementById("clear-cart")?.addEventListener("click", clearCart);
 
-// Finalizar compra
+
 function checkoutCart() {
   let cart = getCart();
   if (cart.length === 0) {
@@ -132,7 +128,6 @@ function checkoutCart() {
   showToast(`Compra realizada con éxito 🎉 Total: $${total.toLocaleString("es-CL")}`);
 }
 
-// Inicializar
 document.addEventListener("DOMContentLoaded", () => {
   renderCart();
   updateCartCount();

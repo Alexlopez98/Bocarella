@@ -8,7 +8,6 @@ const indicatorsContainer = document.getElementById("carousel-indicators");
 const innerContainer = document.getElementById("carousel-inner");
 
 carouselGames.forEach((game, index) => {
-    // Crear indicador
     const indicator = document.createElement("button");
     indicator.type = "button";
     indicator.setAttribute("data-bs-target", "#carouselExampleIndicators");
@@ -18,7 +17,6 @@ carouselGames.forEach((game, index) => {
     indicator.setAttribute("aria-label", `Slide ${index + 1}`);
     indicatorsContainer.appendChild(indicator);
 
-    // Crear carousel item
     const item = document.createElement("div");
     item.classList.add("carousel-item");
     if (index === 0) item.classList.add("active");

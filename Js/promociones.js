@@ -1,4 +1,3 @@
-// 1. Base de datos de pizzas
 const promosData = [
  
   {
@@ -31,12 +30,10 @@ const promosData = [
   }
 ];
 
-// Contador del carrito (header)
 function updateCartCountPromos() {
   if(window.updateHeaderCartCount) window.updateHeaderCartCount();
 }
 
-// Renderizar promociones
 function renderPromos() {
   const container = document.getElementById("promos");
   container.innerHTML = "";
@@ -60,14 +57,12 @@ function renderPromos() {
     `;
     container.appendChild(card);
 
-    // Evento de agregar al carrito
     card.querySelector(".add-to-cart").addEventListener("click", () => {
       addToCartLS(pizza);
     });
   });
 }
 
-// Filtrar promociones
 function filterPromos(category) {
   const promos = document.querySelectorAll(".card[data-category]");
   promos.forEach(promo => {
@@ -76,7 +71,6 @@ function filterPromos(category) {
   });
 }
 
-// Agregar al carrito usando funciones de carrito.js
 function addToCartLS(pizza) {
   let cart = getCart();
   const existing = cart.find(item => item.titulo === pizza.titulo);
@@ -88,7 +82,6 @@ function addToCartLS(pizza) {
   alert(`${pizza.titulo} agregado al carrito! 🛒`);
 }
 
-// Inicializar
 document.addEventListener("DOMContentLoaded", () => {
   renderPromos();
   updateCartCountPromos();

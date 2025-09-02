@@ -79,7 +79,6 @@ h2 {
   transform: translateY(-2px);
 }
 
-/* ======= Animación tarjetas ======= */
 .card {
   animation: fadeIn 0.6s ease;
 }
@@ -97,7 +96,6 @@ h2 {
   }
 }
 
-/* ======= estilos para validaciones ======= */
 .is-valid {
   border-color: #28a745 !important;
   box-shadow: 0 0 5px rgba(40, 167, 69, 0.6);
@@ -107,7 +105,6 @@ h2 {
   box-shadow: 0 0 5px rgba(220, 53, 69, 0.6);
 }
 
-/* ======= mensajes globales ======= */
 #mensajeForm {
   font-weight: bold;
   text-align: center;

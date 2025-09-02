@@ -10,7 +10,6 @@
 </head>
 <body>
 
-  <!-- Header dinámico -->
   <div id="header"></div>
   <div class="divider"></div>
 
@@ -24,21 +23,18 @@
       <button onclick="filterPromos('individual')" class="btn btn-info">Individual</button>
     </div>
 
-    <!-- Contenedor de promociones -->
     <div class="row" id="promos"></div>
   </main>
 
   <div class="divider"></div>
-  <!-- Footer dinámico -->
+
   <div id="footer"></div>
 
-  <!-- Scripts -->
   <script src="/Js/footerandheader.js"></script>
   <script src="/Js/carrito.js"></script>
   <script src="/Js/promociones.js"></script>
 
   <script>
-    // Actualizar contador de carrito y total después de cargar header/footer
     window.addEventListener("load", () => {
       if (typeof updateCartCount === "function") updateCartCount();
       if (typeof updateCartTotal === "function") updateCartTotal();

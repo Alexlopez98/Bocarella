@@ -9,7 +9,6 @@
 </head>
 <body>
 
-  <!-- Header dinámico -->
   <div id="header"></div>
 
   <div class="container my-5 contenedor">
@@ -20,10 +19,8 @@
     </div>
   </div>
 
-  <!-- Footer dinámico -->
   <div id="footer"></div>
 
-  <!-- Scripts -->
   <script src="/Js/footerandheader.js"></script>
 
   <script>
@@ -75,7 +72,6 @@
         });
       }
 
-      // Vaciar historial
       document.getElementById('clear-history').addEventListener('click', () => {
         localStorage.removeItem(historyKey);
         localStorage.removeItem(`cart_${activeUser.usuario}`);

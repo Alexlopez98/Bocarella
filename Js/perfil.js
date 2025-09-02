@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", () => {
   const strengthBar = document.querySelector("#passwordStrength");
   const strengthFill = strengthBar.querySelector(".progress-bar");
 
-  // Cargar datos del usuario activo
   let activeUser = JSON.parse(localStorage.getItem("activeUser"));
   if (!activeUser) window.location.href = "index.html";
   campos.nombre.value = activeUser.usuario || "";
@@ -26,7 +25,6 @@ document.addEventListener("DOMContentLoaded", () => {
     campo.addEventListener("input", () => campo.classList.remove("is-invalid"));
   });
 
-  // Barra fortaleza
   campos.pass.addEventListener("input", () => {
     const val = campos.pass.value;
     strengthBar.classList.toggle("d-none", val === "");
@@ -71,7 +69,6 @@ document.addEventListener("DOMContentLoaded", () => {
       campos.pass.value = "";
       campos.confirm.value = "";
       strengthBar.classList.add("d-none");
-      // actualizar header
       if (window.userHeaderUpdate) window.userHeaderUpdate();
     } else {
       mensaje.className = "alert alert-danger";

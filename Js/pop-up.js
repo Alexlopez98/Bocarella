@@ -18,7 +18,6 @@ document.addEventListener("DOMContentLoaded", function() {
         hoverDescription.textContent = description;
         hoverPrice.textContent = price;
 
-        // Limpiar carrusel
         carouselImagesContainer.innerHTML = '';
         images.forEach((imgSrc, index) => {
             const carouselItem = document.createElement('div');

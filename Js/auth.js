@@ -1,11 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Regex
   const passRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{6,18}$/;
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  // =====================
-  // Helpers de localStorage
-  // =====================
   function getUsers() {
     return JSON.parse(localStorage.getItem("usuarios")) || [];
   }
@@ -24,9 +20,6 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "../index.html"; 
   }
 
-  // =====================
-  // --- LOGIN ---
-  // =====================
   document.getElementById("loginForm").addEventListener("submit", (e) => {
     e.preventDefault();
     const email = document.getElementById("loginEmail");
@@ -57,9 +50,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // =====================
-  // --- REGISTRO ---
-  // =====================
   const form = document.getElementById("registroForm");
   const mensajeForm = document.getElementById("mensajeForm");
   const nombre = document.getElementById("regNombre");
@@ -107,7 +97,6 @@ document.addEventListener("DOMContentLoaded", () => {
     else fecha.classList.add("is-valid");
   }
 
-  // Eventos en vivo
   nombre.addEventListener("input", validarNombre);
   usuario.addEventListener("input", validarUsuario);
   email.addEventListener("input", validarEmail);
@@ -115,7 +104,6 @@ document.addEventListener("DOMContentLoaded", () => {
   confirm.addEventListener("input", validarConfirm);
   fecha.addEventListener("change", validarFecha);
 
-  // Submit registro
   form.addEventListener("submit", (e) => {
     e.preventDefault();
     validarNombre();
@@ -164,9 +152,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // =====================
-  // --- RECUPERAR ---
-  // =====================
   document.getElementById("recuperarForm").addEventListener("submit", (e) => {
     e.preventDefault();
     const emailRec = document.getElementById("recEmail");
@@ -184,9 +169,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
-  // =====================
-  // --- SESIÓN ACTIVA ---
-  // =====================
   const activeUser = getActiveUser();
   if (activeUser) {
     const header = document.getElementById("header");

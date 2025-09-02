@@ -1,4 +1,3 @@
-// 1. Base de datos de pizzas con precios según tamaño
 const pizzasData = [
   {
     titulo: "Pizza Margarita",
@@ -23,7 +22,6 @@ const pizzasData = [
   }
 ];
 
-// 2. Renderizar pizzas
 function renderPizzas() {
   const container = document.getElementById("pizzas");
   container.innerHTML = "";
@@ -59,7 +57,6 @@ function renderPizzas() {
     `;
     container.appendChild(card);
 
-    // Evento agregar al carrito
     card.querySelector(".add-to-cart").addEventListener("click", () => {
       const sizeSelect = card.querySelector(".size-select");
       const selectedSize = sizeSelect.value;
@@ -86,11 +83,9 @@ function renderPizzas() {
   });
 }
 
-// 3. Agregar al carrito usando carrito.js
 function addToCartLS(pizza) {
   let cart = getCart();
 
-  // Verificamos por titulo + tamaño + extras
   const existing = cart.find(item =>
     item.titulo === pizza.titulo &&
     item.tamaño === pizza.tamaño &&
@@ -104,7 +99,6 @@ function addToCartLS(pizza) {
   if (typeof updateCartCount === "function") updateCartCount();
 }
 
-// Inicializar
 document.addEventListener("DOMContentLoaded", () => {
   renderPizzas();
 });
